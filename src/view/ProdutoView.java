@@ -24,6 +24,14 @@ public class ProdutoView extends javax.swing.JFrame {
         TxtEstoque.setText("");
         TxtEstoqueMinimo.setText("");
     }
+    
+    private void SetValorCamposTelas(ProdutoModel produto){
+        TxtNome.setText(produto.getNome());
+        TxtValor.setText(String.valueOf(produto.getValor()));
+        TxtDescricao.setText(produto.getDescricao());
+        TxtEstoque.setText(String.valueOf(produto.getEstoque()));
+        TxtEstoqueMinimo.setText(String.valueOf(produto.getEstoqueMinimo()));
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -44,6 +52,8 @@ public class ProdutoView extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         TxtID = new javax.swing.JTextField();
         TxtNome = new javax.swing.JTextField();
+        BtnBuscar = new javax.swing.JButton();
+        BtnLimpar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -86,6 +96,20 @@ public class ProdutoView extends javax.swing.JFrame {
 
         TxtID.setName(""); // NOI18N
 
+        BtnBuscar.setText("Buscar");
+        BtnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBuscarActionPerformed(evt);
+            }
+        });
+
+        BtnLimpar.setText("Limpar");
+        BtnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnLimparActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -108,7 +132,13 @@ public class ProdutoView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(BtnCadastrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(BtnBuscar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BtnLimpar)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,7 +179,10 @@ public class ProdutoView extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(TxtEstoqueMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
-                .addComponent(BtnCadastrar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BtnCadastrar)
+                    .addComponent(BtnBuscar)
+                    .addComponent(BtnLimpar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -175,6 +208,22 @@ public class ProdutoView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Erro ao cadastrar produto!\n\n"+e.getMessage());
         }              
     }//GEN-LAST:event_BtnCadastrarActionPerformed
+
+    private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
+        int codigoProduto = Integer.parseInt("0"+TxtID.getText());
+        
+        if (produtoController.ContemNaLista(codigoProduto)) {
+            ProdutoModel produto = produtoController.Buscar(codigoProduto);
+            SetValorCamposTelas(produto);
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Nenhum produto encontrado");
+        }
+    }//GEN-LAST:event_BtnBuscarActionPerformed
+
+    private void BtnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLimparActionPerformed
+        LimparTela();
+    }//GEN-LAST:event_BtnLimparActionPerformed
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -207,7 +256,9 @@ public class ProdutoView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnBuscar;
     private javax.swing.JButton BtnCadastrar;
+    private javax.swing.JButton BtnLimpar;
     private javax.swing.JTextArea TxtDescricao;
     private javax.swing.JTextField TxtEstoque;
     private javax.swing.JTextField TxtEstoqueMinimo;

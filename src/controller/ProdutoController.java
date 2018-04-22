@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import model.ProdutoModel;
 
@@ -19,5 +20,23 @@ public class ProdutoController {
         catch (Exception e) {
             throw new Exception(e); 
         }
+    }
+    
+    public boolean ContemNaLista(int id){
+        for(ProdutoModel produto: listaProduto){
+            if (produto.getCodigo() == id) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public ProdutoModel Buscar(int id){
+        for(ProdutoModel produto: listaProduto){
+            if (produto.getCodigo() == id) {
+                return produto;
+            }
+        }
+        return null;
     }
 }
